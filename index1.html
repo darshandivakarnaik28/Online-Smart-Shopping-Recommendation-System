@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Shopping Mall</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 180px;
+            text-align: center;
+            box-shadow: 2px 2px 5px #aaa;
+            border-radius: 8px;
+        }
+        .product-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Mall</h1>
+
+    <form method="POST">
+        <label>User ID:</label>
+        <input type="number" name="user_id" required><br>
+        <label>Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <h3>Select Products:</h3>
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}"><br>
+                <input type="checkbox" name="product" value="{{ product.id }}"> {{ product.name }}<br>
+                <strong>${{ product.price }}</strong>
+            </div>
+        {% endfor %}
+
+        <br><br><input type="submit" value="Purchase">
+    </form>
+
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    <br><a href="/export">Download Purchase Summary (.xls)</a>
+</body>
+</html>
